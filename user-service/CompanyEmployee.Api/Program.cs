@@ -1,5 +1,5 @@
-using CompanyEmployee.Constants;
-using CompanyEmployee.Extensions;
+using CompanyEmployee.Api.Constants;
+using CompanyEmployee.Api.Extensions;
 using Microsoft.AspNetCore.HttpOverrides;
 
 var builder = WebApplication.CreateBuilder(args);

@@ -1,6 +1,6 @@
-using CompanyEmployee.Constants;
+using CompanyEmployee.Api.Constants;
 
-namespace CompanyEmployee.Extensions;
+namespace CompanyEmployee.Api.Extensions;
 
 public static class ServiceExtensions
 {

@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompanyEmployee", "CompanyEmployee\CompanyEmployee.csproj", "{03E4D9A8-2360-4B65-9CE6-8459A6E2CAED}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompanyEmployee.Api", "CompanyEmployee.Api\CompanyEmployee.Api.csproj", "{03E4D9A8-2360-4B65-9CE6-8459A6E2CAED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CompanyEmployee.Contracts", "CompanyEmployee.Contracts\CompanyEmployee.Contracts.csproj", "{499306E3-2D07-4464-9AF0-F9A1FD62C2E7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,5 +20,9 @@ Global
 		{03E4D9A8-2360-4B65-9CE6-8459A6E2CAED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{03E4D9A8-2360-4B65-9CE6-8459A6E2CAED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{03E4D9A8-2360-4B65-9CE6-8459A6E2CAED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{499306E3-2D07-4464-9AF0-F9A1FD62C2E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{499306E3-2D07-4464-9AF0-F9A1FD62C2E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{499306E3-2D07-4464-9AF0-F9A1FD62C2E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{499306E3-2D07-4464-9AF0-F9A1FD62C2E7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

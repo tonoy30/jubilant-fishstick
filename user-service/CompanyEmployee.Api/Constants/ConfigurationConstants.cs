@@ -1,4 +1,4 @@
-namespace CompanyEmployee.Constants;
+namespace CompanyEmployee.Api.Constants;
 
 public static class ConfigurationConstants
 {
