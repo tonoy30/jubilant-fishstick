@@ -8,7 +8,7 @@ public class RepositoryManager : IRepositoryManager
     private readonly Lazy<ICompanyRepository> _companyRepository;
     private readonly Lazy<IEmployeeRepository> _employeeRepository;
 
-    protected RepositoryManager(RepositoryContext repositoryContext)
+    public RepositoryManager(RepositoryContext repositoryContext)
     {
         _repositoryContext = repositoryContext;
         _companyRepository = new Lazy<ICompanyRepository>(() => new CompanyRepository(repositoryContext));

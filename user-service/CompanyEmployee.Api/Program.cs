@@ -15,6 +15,9 @@ try
     // Add services to the container.
     builder.Services.ConfigureCors();
     builder.Services.ConfigureRepositoryManager();
+    builder.Services.ConfigureServiceManager();
+    builder.Services.ConfigureNpgsqlContext(builder.Configuration);
+    builder.Services.AddAutoMapper(typeof(Program));
     builder.Services.AddControllers();
 
     // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

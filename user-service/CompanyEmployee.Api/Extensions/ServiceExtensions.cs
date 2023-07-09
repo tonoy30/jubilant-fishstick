@@ -1,6 +1,7 @@
 using CompanyEmployee.Api.Constants;
 using CompanyEmployee.Api.Contracts;
 using CompanyEmployee.Api.Repositories;
+using CompanyEmployee.Api.Services;
 
 namespace CompanyEmployee.Api.Extensions;
 
@@ -19,8 +20,13 @@ public static class ServiceExtensions
         });
     }
 
-    public static void ConfigureRepositoryManager(this IServiceCollection services)
-    {
+    public static void ConfigureRepositoryManager(this IServiceCollection services) =>
         services.AddScoped<IRepositoryManager, RepositoryManager>();
-    }
+
+    public static void ConfigureServiceManager(this IServiceCollection services) =>
+        services.AddScoped<IServiceManager, ServiceManager>();
+
+    public static void ConfigureNpgsqlContext(this IServiceCollection services,
+        IConfiguration configuration) =>
+        services.AddNpgsql<RepositoryContext>(configuration.GetConnectionString("sqlConnection"));
 }
