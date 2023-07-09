@@ -1,4 +1,6 @@
 using CompanyEmployee.Api.Constants;
+using CompanyEmployee.Api.Contracts;
+using CompanyEmployee.Api.Repositories;
 
 namespace CompanyEmployee.Api.Extensions;
 
@@ -15,5 +17,10 @@ public static class ServiceExtensions
                     .AllowAnyHeader()
             );
         });
+    }
+
+    public static void ConfigureRepositoryManager(this IServiceCollection services)
+    {
+        services.AddScoped<IRepositoryManager, RepositoryManager>();
     }
 }

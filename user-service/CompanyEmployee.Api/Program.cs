@@ -14,6 +14,7 @@ try
 
     // Add services to the container.
     builder.Services.ConfigureCors();
+    builder.Services.ConfigureRepositoryManager();
     builder.Services.AddControllers();
 
     // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -49,7 +50,7 @@ try
 
     app.Run();
 }
-catch (Exception ex)
+catch (Exception ex) when (ex is not HostAbortedException)
 {
     Log.Fatal(ex, "Application terminated unexpectedly");
 }
