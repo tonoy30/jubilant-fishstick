@@ -2,6 +2,7 @@ using AutoMapper;
 using CompanyEmployee.Api.Contracts;
 using CompanyEmployee.Api.DataTransferObjects;
 using CompanyEmployee.Api.Entities;
+using CompanyEmployee.Api.Exceptions;
 using Serilog;
 
 namespace CompanyEmployee.Api.Services;
@@ -31,5 +32,17 @@ internal sealed class CompanyService : ICompanyService
                 nameof(GetAllCompanies), ex.Message);
             throw;
         }
+    }
+
+    public CompanyDto GetCompany(Guid companyId, bool trackChanges)
+    {
+        var company = _repository.Company.GetCompany(companyId, trackChanges);
+        if (company is null)
+        {
+            throw new CompanyNotFoundException(companyId);
+        }
+
+        var companyDto = _mapper.Map<CompanyDto>(company);
+        return companyDto;
     }
 }

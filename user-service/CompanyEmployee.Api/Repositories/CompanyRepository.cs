@@ -9,8 +9,9 @@ public class CompanyRepository : RepositoryBase<Company>, ICompanyRepository
     {
     }
 
-    public IEnumerable<Company> GetAllCompanies(bool trackChanges)
-    {
-        return FindAll(trackChanges).OrderBy(o => o.Name).ToList();
-    }
+    public IEnumerable<Company> GetAllCompanies(bool trackChanges) =>
+        FindAll(trackChanges).OrderBy(o => o.Name).ToList();
+
+    public Company? GetCompany(Guid companyId, bool trackChanges) =>
+        FindByCondition(c => c.Id.Equals(companyId), trackChanges).SingleOrDefault();
 }

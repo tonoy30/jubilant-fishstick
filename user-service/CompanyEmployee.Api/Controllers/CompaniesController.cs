@@ -27,4 +27,11 @@ public class CompaniesController : ControllerBase
             return StatusCode(500, "Internal Server Error");
         }
     }
+
+    [HttpGet("{companyId:guid}")]
+    public IActionResult GetCompany(Guid companyId)
+    {
+        var company = _service.CompanyService.GetCompany(companyId, false);
+        return Ok(company);
+    }
 }

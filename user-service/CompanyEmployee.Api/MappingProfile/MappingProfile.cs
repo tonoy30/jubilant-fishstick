@@ -14,5 +14,6 @@ public class MappingProfile : Profile
                     string.Join(' ', x.Address, x.Country)
                 )
         );
+        CreateMap<Employee, EmployeeDto>();
     }
 }
