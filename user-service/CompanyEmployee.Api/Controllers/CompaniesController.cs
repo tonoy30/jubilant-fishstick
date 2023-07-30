@@ -1,4 +1,6 @@
 using CompanyEmployee.Api.Contracts;
+using CompanyEmployee.Api.DataTransferObjects;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CompanyEmployee.Api.Controllers;
@@ -28,10 +30,31 @@ public class CompaniesController : ControllerBase
         }
     }
 
-    [HttpGet("{companyId:guid}")]
+    [HttpGet("{companyId:guid}", Name = "CompanyById")]
     public IActionResult GetCompany(Guid companyId)
     {
         var company = _service.CompanyService.GetCompany(companyId, false);
         return Ok(company);
+    }
+
+    [HttpGet("({ids})", Name = "CompanyCollection")]
+    public IActionResult GetCompanyCollection(IEnumerable<Guid> ids)
+    {
+        var companies = _service.CompanyService.GetByIds(ids, false);
+        return Ok(companies);
+    }
+
+    [HttpPost]
+    public IActionResult CreateCompany([FromBody] CompanyForCreationDto company)
+    {
+        try
+        {
+            var createdCompany = _service.CompanyService.CreateCompany(company);
+            return CreatedAtRoute("CompanyById", new { companyId = createdCompany.Id }, createdCompany);
+        }
+        catch (Exception e)
+        {
+            return BadRequest("Please provide valid data");
+        }
     }
 }

@@ -1,3 +1,9 @@
 namespace CompanyEmployee.Api.DataTransferObjects;
 
-public record EmployeeDto(Guid Id, string Name, int Age, string Position);
+[Serializable]
+public record EmployeeDto
+{
+    public Guid Id { get; init; }
+    public string? Name { get; init; }
+    public string? Position { get; init; }
+};

@@ -1,6 +1,7 @@
 using AutoMapper;
 using CompanyEmployee.Api.Contracts;
 using CompanyEmployee.Api.DataTransferObjects;
+using CompanyEmployee.Api.Entities;
 using CompanyEmployee.Api.Exceptions;
 using Serilog;
 
@@ -44,5 +45,21 @@ internal sealed class EmployeeService : IEmployeeService
         }
 
         return _mapper.Map<EmployeeDto>(employee);
+    }
+
+    public EmployeeDto CreateEmployeeForCompany(Guid companyId, EmployeeForCreationDto employee, bool trackChanges)
+    {
+        var company = _repository.Company.GetCompany(companyId, trackChanges);
+        if (company is null)
+        {
+            throw new CompanyNotFoundException(companyId);
+        }
+
+        var employeeEntity = _mapper.Map<Employee>(employee);
+
+        _repository.Employee.CreateEmployeeForCompany(companyId, employeeEntity);
+        _repository.Save();
+
+        return _mapper.Map<EmployeeDto>(employeeEntity);
     }
 }
