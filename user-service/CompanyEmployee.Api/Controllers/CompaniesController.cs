@@ -71,14 +71,14 @@ public class CompaniesController : ControllerBase
         return CreatedAtRoute("CompanyCollection", new { ids }, companies);
     }
 
-    [HttpDelete("companyId:guid")]
+    [HttpDelete("{companyId:guid}")]
     public IActionResult DeleteCompany(Guid companyId)
     {
         _service.CompanyService.DeleteCompany(companyId, false);
         return NoContent();
     }
 
-    [HttpPut("companyId:guid")]
+    [HttpPut("{companyId:guid}")]
     public IActionResult UpdateCompany(Guid companyId, [FromBody] CompanyForUpdateDto companyForUpdateDto)
     {
         try
