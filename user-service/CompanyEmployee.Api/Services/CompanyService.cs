@@ -70,4 +70,36 @@ internal sealed class CompanyService : ICompanyService
 
         return _mapper.Map<IEnumerable<CompanyDto>>(companies);
     }
+
+    public (IEnumerable<CompanyDto>, string ids) CreateCompanyCollection(
+        IEnumerable<CompanyForCreationDto> companyCollection)
+    {
+        if (companyCollection is null)
+        {
+            throw new CompanyCollectionBadRequest();
+        }
+
+        var companyEntities = _mapper.Map<IEnumerable<Company>>(companyCollection);
+        foreach (var company in companyEntities)
+        {
+            _repository.Company.CreateCompany(company);
+        }
+
+        _repository.Save();
+        var companiesToReturn = _mapper.Map<IEnumerable<CompanyDto>>(companyEntities).ToArray();
+        var ids = string.Join(",", companiesToReturn.Select(c => c.Id));
+        return (companiesToReturn, ids);
+    }
+
+    public void DeleteCompany(Guid companyId, bool trackChanges)
+    {
+        var company = _repository.Company.GetCompany(companyId, trackChanges);
+        if (company is null)
+        {
+            throw new CompanyNotFoundException(companyId);
+        }
+
+        _repository.Company.DeleteCompany(company);
+        _repository.Save();
+    }
 }

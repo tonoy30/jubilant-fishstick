@@ -43,4 +43,11 @@ public class EmployeesController : ControllerBase
             return BadRequest("Please provide valid data");
         }
     }
+
+    [HttpDelete("{employeeId:guid}")]
+    public IActionResult DeleteEmployeeForCompany(Guid companyId, Guid employeeId)
+    {
+        _service.EmployeeService.DeleteEmployeeForCompany(companyId, employeeId, false);
+        return NoContent();
+    }
 }

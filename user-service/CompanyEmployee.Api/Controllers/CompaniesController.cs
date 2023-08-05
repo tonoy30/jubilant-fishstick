@@ -1,5 +1,6 @@
 using CompanyEmployee.Api.Contracts;
 using CompanyEmployee.Api.DataTransferObjects;
+using CompanyEmployee.Api.ModelBinders;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
@@ -37,8 +38,10 @@ public class CompaniesController : ControllerBase
         return Ok(company);
     }
 
-    [HttpGet("({ids})", Name = "CompanyCollection")]
-    public IActionResult GetCompanyCollection(IEnumerable<Guid> ids)
+    [HttpGet("collection/({ids})", Name = "CompanyCollection")]
+    public IActionResult GetCompanyCollection(
+        [ModelBinder(BinderType = typeof(ArrayModelBinder))]
+        IEnumerable<Guid> ids)
     {
         var companies = _service.CompanyService.GetByIds(ids, false);
         return Ok(companies);
@@ -56,5 +59,21 @@ public class CompaniesController : ControllerBase
         {
             return BadRequest("Please provide valid data");
         }
+    }
+
+    [HttpPost("collection")]
+    public IActionResult CreateCompanyCollection([FromBody] IEnumerable<CompanyForCreationDto> companyCollection)
+    {
+        var (companies, ids) = _service.CompanyService
+            .CreateCompanyCollection(companyCollection);
+
+        return CreatedAtRoute("CompanyCollection", new { ids }, companies);
+    }
+
+    [HttpDelete("companyId:guid")]
+    public IActionResult DeleteCompany(Guid companyId)
+    {
+        _service.CompanyService.DeleteCompany(companyId, false);
+        return NoContent();
     }
 }
