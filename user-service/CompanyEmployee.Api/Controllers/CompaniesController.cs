@@ -1,5 +1,6 @@
 using CompanyEmployee.Api.Contracts;
 using CompanyEmployee.Api.DataTransferObjects;
+using CompanyEmployee.Api.Entities;
 using CompanyEmployee.Api.ModelBinders;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
@@ -75,5 +76,19 @@ public class CompaniesController : ControllerBase
     {
         _service.CompanyService.DeleteCompany(companyId, false);
         return NoContent();
+    }
+
+    [HttpPut("companyId:guid")]
+    public IActionResult UpdateCompany(Guid companyId, [FromBody] CompanyForUpdateDto companyForUpdateDto)
+    {
+        try
+        {
+            _service.CompanyService.UpdateCompany(companyId, companyForUpdateDto, true);
+            return NoContent();
+        }
+        catch (Exception e)
+        {
+            return BadRequest("Please provide valid data");
+        }
     }
 }

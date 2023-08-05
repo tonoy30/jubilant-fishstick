@@ -50,4 +50,21 @@ public class EmployeesController : ControllerBase
         _service.EmployeeService.DeleteEmployeeForCompany(companyId, employeeId, false);
         return NoContent();
     }
+
+    [HttpPut("{employeeId:guid}")]
+    public IActionResult UpdateEmployeeForCompany(Guid companyId, Guid employeeId,
+        [FromBody] EmployeeForUpdateDto employeeForUpdateDto)
+    {
+        try
+        {
+            _service.EmployeeService
+                .UpdateEmployeeForCompany(companyId, employeeId, employeeForUpdateDto,
+                    false, true);
+            return NoContent();
+        }
+        catch (Exception e)
+        {
+            return BadRequest("please provide valid data");
+        }
+    }
 }
