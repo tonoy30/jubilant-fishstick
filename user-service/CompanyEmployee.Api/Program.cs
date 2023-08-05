@@ -1,5 +1,6 @@
 using CompanyEmployee.Api.Constants;
 using CompanyEmployee.Api.Extensions;
+using CompanyEmployee.Api.JsonPatch;
 using Microsoft.AspNetCore.HttpOverrides;
 using Serilog;
 
@@ -22,6 +23,7 @@ try
         {
             config.RespectBrowserAcceptHeader = true;
             config.ReturnHttpNotAcceptable = true;
+            config.InputFormatters.Insert(0, JsonPatchInputFormatter.GetJsonPatchInputFormatter());
         })
         .AddXmlDataContractSerializerFormatters();
 

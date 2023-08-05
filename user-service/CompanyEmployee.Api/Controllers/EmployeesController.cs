@@ -1,6 +1,7 @@
 using CompanyEmployee.Api.Contracts;
 using CompanyEmployee.Api.DataTransferObjects;
 using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CompanyEmployee.Api.Controllers;
@@ -60,6 +61,24 @@ public class EmployeesController : ControllerBase
             _service.EmployeeService
                 .UpdateEmployeeForCompany(companyId, employeeId, employeeForUpdateDto,
                     false, true);
+            return NoContent();
+        }
+        catch (Exception e)
+        {
+            return BadRequest("please provide valid data");
+        }
+    }
+
+    [HttpPatch("{employeeId:guid}")]
+    public IActionResult PatchEmployeeForCompany(Guid companyId, Guid employeeId,
+        [FromBody] JsonPatchDocument<EmployeeForUpdateDto> patchDoc)
+    {
+        try
+        {
+            var (employeeToPatch, employee) = _service.EmployeeService.GetEmployeeForPatch(companyId,
+                employeeId, false, true);
+            patchDoc.ApplyTo(employeeToPatch);
+            _service.EmployeeService.SaveChangesForPatch(employeeToPatch, employee);
             return NoContent();
         }
         catch (Exception e)

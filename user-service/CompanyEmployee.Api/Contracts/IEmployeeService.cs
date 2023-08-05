@@ -12,4 +12,9 @@ public interface IEmployeeService
 
     void UpdateEmployeeForCompany(Guid companyId, Guid employeeId, EmployeeForUpdateDto employeeForUpdate,
         bool compTrackChanges, bool empTrackChanges);
+
+    (EmployeeForUpdateDto employeeToPatch, Employee employeeEntity) GetEmployeeForPatch(Guid companyId, Guid employeeId,
+        bool compTrackChanges, bool empTrackChanges);
+
+    void SaveChangesForPatch(EmployeeForUpdateDto employeeToPatch, Employee employeeEntity);
 }
